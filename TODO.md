@@ -37,6 +37,19 @@ Extra:
 
   * Set theory (A extra B) a.k.a. (B - A).
 
+
+## Exmaples
+
+    $ setop disjoint 1 2
+    ⊥ (the symbol false) and exit 1
+
+    $ setop except 1.txt 2.txt
+    bravo
+
+    $ setop extra 1.txt 2.txt
+    charlie
+
+
 ## Code
 
 ```
