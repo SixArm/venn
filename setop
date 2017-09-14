@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+op="$1"; shift
+case  $op  in
+  ∪|u|union|or|∨|'+'|'|'|'||')
+    awk '!seen[$0] {print} {seen[$0]=1}' "$@"
+    ;;
+  ∩|i|intersection|and|∧|'&'|'&&')
+    awk 'FNR==1{argind+=1} seen[$0]+=1 {next} END { for (key in seen) { if (seen[key]==argind) { print key } } }' "$@"
+    ;;
+  ⊕|d|difference|symmetricdifference|disjunctiveunion|⊻|x|xor)
+    awk 'FNR==1{argind+=1} seen[$0]+=1 {next} END { for (key in seen) { if (seen[key]==1) { print key } } }' "$@"
+    ;;
+  *)
+esac
