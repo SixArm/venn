@@ -155,8 +155,8 @@ Default output text:
 
 Example of customizing:
 
-  $ TRUE=yes FALSE=no setup disjoint 1 2
-  no
+    $ TRUE=yes FALSE=no setup disjoint 1 2
+    no
 
 
 ## Implemenation
