@@ -19,9 +19,12 @@ Examples:
 
 Set operations shortlist:
 
-  * `u` `union` `∪` (U+222A union) `+` (U+002B plus sign) `∨` (U+2228 logical or)
-  * `i` `intersection` `∩` (U+2229 intersection) `∧` (U+2227 logical and)
-  * `d` `difference` `Δ` (U+0394 delta) `∆` (U+2206 increment) `⊻` (U+22BB logical xor)
+  * union
+  * intersection
+  * difference
+  * disjoint
+  * except
+  * extra
 
 
 ## Set operations details
@@ -64,9 +67,9 @@ Difference:
 
   * Set operation (A symmetric difference B) a.k.a. logical "xor".
 
-  * The lines that are in only one of the inputs. 
+  * Print lines that are in only one of the inputs. 
 
-  * `d` `difference` 
+  * `d` `diff` `difference` 
 
   * `⊖` (U+2296 circled minus)
 
@@ -77,6 +80,36 @@ Difference:
   * `⊻` (U+22BB logical xor)
 
   * `xor`
+
+Disjoint:
+
+  * Set operation is (A disjoint B) a.k.a. logical "not".
+
+  * Print $TRUE and exit 0, or $FALSE and exit 1. 
+
+  * `disjoint`
+
+  * `n` `not` `none`
+
+Except:
+
+  * Set theory (A except B) a.k.a. (A - B)
+
+  * The lines that are only in the first input.
+
+  * `ex` `except` `exclude`
+
+  * `sub` `subtract` `subtraction
+
+  * `-` (U+2212 minus sign)
+
+Extra:
+
+  * Set theory (A extra B) a.k.a. (B - A).
+
+  * The lines that are only in the last input.
+
+  * `extra`
 
 
 ## Examples
@@ -105,6 +138,29 @@ Example set operations:
     bravo
     charlie
 
+    $ setop disjoint 1 2
+    ⊥
+
+    $ setop exclude 1 2
+    bravo
+
+    $ setop extra 1 2
+    charlie
+
+
+## Output true or false
+
+Default output text:
+
+  * TRUE is `⊤` (U+22A4 down tack).
+
+  * FALSE is `⊥` (U+22A5 up tack).
+
+Example of customizing:
+
+  $ TRUE=yes FALSE=no setup disjoint 1 2
+  no
+
 
 ## Implemenation
 
@@ -116,8 +172,8 @@ The goal is to maximize usability on a wide range of Unix systems, including old
 ## Tracking
 
 * Program: setop
-* Version: 3.0.0
+* Version: 3.1.0
 * Created: 2017-01-30
-* Updated: 2017-09-14
+* Updated: 2017-09-15
 * License: GPL
 * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
