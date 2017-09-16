@@ -1,12 +1,10 @@
-# The `setop` command for set operation on text lines
+# setop command for set operation on text line inputs
 
 <img src="README.png" alt="Realm" style="width: 100%;"/>
 
-Print the items that are in any of the inputs.
-
 Syntax:
 
-    setop (union|intersection|difference|...) <input> ...
+    setop (union|intersection|...) <input> ...
 
 Examples:
 
@@ -16,10 +14,7 @@ Examples:
     $ setop intersection 1.txt 2.txt 3.txt
     => items that are in every file
 
-    $ setop difference 1.txt 2.txt 3.txt
-    => items that are in one file
-
-Set operations shortlist:
+Set operations summary:
 
   * union
   * intersection
