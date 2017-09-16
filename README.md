@@ -100,7 +100,7 @@ Extra:
 
 Disjoint:
 
-  * Set operation is (A disjoint B) a.k.a. logical "not".
+  * Set operation is (A disjoint B).
 
   * Print $TRUE and exit 0, or $FALSE and exit 1. 
 
