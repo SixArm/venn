@@ -78,16 +78,6 @@ Difference:
 
   * `xor`
 
-Disjoint:
-
-  * Set operation is (A disjoint B) a.k.a. logical "not".
-
-  * Print $TRUE and exit 0, or $FALSE and exit 1. 
-
-  * `disjoint`
-
-  * `n` `not` `none`
-
 Except:
 
   * Set theory (A except B) a.k.a. (A - B)
@@ -107,6 +97,16 @@ Extra:
   * The lines that are only in the last input.
 
   * `extra`
+
+Disjoint:
+
+  * Set operation is (A disjoint B) a.k.a. logical "not".
+
+  * Print $TRUE and exit 0, or $FALSE and exit 1. 
+
+  * `disjoint`
+
+  * `n` `not` `none`
 
 
 ## Examples
@@ -135,14 +135,14 @@ Example set operations:
     bravo
     charlie
 
-    $ setop disjoint 1 2
-    ⊥
-
     $ setop exclude 1 2
     bravo
 
     $ setop extra 1 2
     charlie
+
+    $ setop disjoint 1 2
+    ⊥
 
 
 ## Output true or false
