@@ -1,5 +1,7 @@
 # The `setop` command for set operation on text lines
 
+<img src="README.png" alt="Realm" style="width: 100%;"/>
+
 Print the items that are in any of the inputs.
 
 Syntax:
@@ -99,7 +101,7 @@ Except:
 
   * `ex` `except` `exclude`
 
-  * `sub` `subtract` `subtraction
+  * `sub` `subtract` `subtraction`
 
   * `-` (U+2212 minus sign)
 
