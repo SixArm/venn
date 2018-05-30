@@ -14,6 +14,9 @@ Examples:
     $ setop intersection 1.txt 2.txt 3.txt
     => items that are in every file
 
+    $ setop difference 1.txt 2.txt 3.txt
+    => items that are in exactly one file
+
 Set operations summary:
 
   * union
