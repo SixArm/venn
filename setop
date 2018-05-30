@@ -21,7 +21,7 @@ case  $op  in
     awk 'BEGIN{argindmax=ARGC-1} FNR==1{argind+=1} argind<argindmax {seen[$0]; next}!($0 in seen)' "$@"
     ;;
   disjoint|n|not|none)
-    awk 'seen[$0]==1 {x=1;exit} {seen[$0]=1} END { print x ? "$FALSE" : "$TRUE"}; exit !!x}' "$@"
+    awk -v t="$TRUE" -v f="$FALSE" 'seen[$0]==1 {x=1;exit} {seen[$0]=1} END { print x ? f : t; exit !!x }' "$@"
     ;;
   *)
 esac
