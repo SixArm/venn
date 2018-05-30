@@ -1,39 +1,83 @@
-# setop command for set operation on text line inputs
+# venn: set operations with a command line shell script
 
 <img src="README.png" alt="Realm" style="width: 100%;"/>
 
+
 Syntax:
 
-    setop (union|intersection|...) <input> ...
+    venn (union|intersection|...) <input> ...
 
-Examples:
+Set operations:
 
-    $ setop union 1.txt 2.txt 3.txt
-    => items that are in any file
+  * union: A ∪ B (lines that are in any input stream)
 
-    $ setop intersection 1.txt 2.txt 3.txt
-    => items that are in every file
+  * intersection: A ∩ B (lines that are in every input stream)
 
-    $ setop difference 1.txt 2.txt 3.txt
-    => items that are in exactly one file
+  * difference: A ⊖ B (lines that are in exactly one input stream)
 
-Set operations summary:
+  * except: A - B (lines that are solely in the first input steam)
 
-  * union
-  * intersection
-  * difference
-  * disjoint
-  * except
-  * extra
+  * extra: B - A (lines that are solely in the last input stream)
+
+  * disjoint: (is each line in only in one input stream?)
+
+
+### Examples
+
+Examples use these two example data files:
+
+    $ cat A
+    red
+    green
+
+    $ cat B
+    red
+    blue
+
+Union:
+
+    $ venn union A B
+    red
+    green
+    blue
+
+Intersection:
+
+    $ venn intersection A B
+    red
+
+Difference:
+
+    $ venn difference A B
+    green
+    blue
+
+Except:
+
+    $ venn except A B
+    green
+
+Extra:
+
+    $ venn extra A B
+    blue
+
+Disjoint:
+
+    $ venn disjoint A B
+    false
 
 
 ## Set operations details
 
-Union:
 
-  * Set operation is (A union B) a.k.a. logical "or".
+### Union
 
-  * Print lines that are in any of the inputs.
+Set operation is (A union B) a.k.a. logical "or".
+
+Print lines that are in any of the inputs.
+
+Synonyms:
 
   * `u` `union`
 
@@ -47,11 +91,14 @@ Union:
 
   * `or`
 
-Intersection:
 
-  * Set operation is (A intersection B) a.k.a. logical "and".
+### Intersection
 
-  * Print lines that are in every one of the inputs.
+Set operation is (A intersection B) a.k.a. logical "and".
+
+Print lines that are in every one of the inputs.
+
+Synonyms:
 
   * `i` `intersection`
 
@@ -63,11 +110,14 @@ Intersection:
 
   * `and`
 
-Difference:
 
-  * Set operation (A symmetric difference B) a.k.a. logical "xor".
+### Difference
 
-  * Print lines that are in only one of the inputs. 
+Set operation (A symmetric difference B) a.k.a. logical "xor".
+
+Print lines that are in only one of the inputs. 
+
+Synonyms:
 
   * `d` `diff` `difference` 
 
@@ -81,71 +131,48 @@ Difference:
 
   * `xor`
 
-Except:
 
-  * Set theory (A except B) a.k.a. (A - B)
+### Except a.k.a. First
 
-  * The lines that are only in the first input.
+Set theory (A except B) a.k.a. (A - B)
 
-  * `ex` `except` `exclude`
+Print lines that are only in the first input.
+
+Synonyms:
+
+  * `except`
+
+  * `first`
 
   * `sub` `subtract` `subtraction`
 
   * `-` (U+2212 minus sign)
 
-Extra:
 
-  * Set theory (A extra B) a.k.a. (B - A).
+### Extra a.k.a. Last
 
-  * The lines that are only in the last input.
+Set theory (A extra B) a.k.a. (B - A).
+
+The lines that are only in the last input.
+
+Synonyms:
 
   * `extra`
 
-Disjoint:
+  * `last`
 
-  * Set operation is (A disjoint B).
 
-  * Print $TRUE and exit 0, or $FALSE and exit 1. 
+### Disjoint
+
+Set operation is (A disjoint B).
+
+Print $TRUE and exit 0, or $FALSE and exit 1. 
+
+Synonyms:
 
   * `disjoint`
 
   * `n` `not` `none`
-
-
-## Examples
-
-Example file 1:
-
-    alpha
-    bravo
-
-Example file 2:
-
-    alpha
-    charlie
-
-Example set operations:
-
-    $ setop union 1 2
-    alpha
-    bravo
-    charlie
-
-    $ setop intersection 1 2
-    alpha
-
-    $ setop difference 1 2
-    bravo
-    charlie
-
-    $ setop exclude 1 2
-    bravo
-
-    $ setop extra 1 2
-    charlie
-
-    $ setop disjoint 1 2
-    ⊥
 
 
 ## Output true or false
@@ -158,7 +185,7 @@ Default output text:
 
 Example of customizing:
 
-    $ TRUE=yes FALSE=no setop disjoint 1 2
+    $ TRUE=yes FALSE=no venn disjoint 1 2
     no
 
 
@@ -169,11 +196,35 @@ This command is currently implemented using `awk` and POSIX.
 The goal is to maximize usability on a wide range of Unix systems, including older systems, and pure POSIX systems.
 
 
+## Benchmarks
+
+Benchmark by using two files each containing a million lines of random 6-digit hex strings:
+
+    $ hexdump -n 30000000 -v -e '/1 "%02X"' -e "/3 \"\n\"" /dev/urandom > A
+    $ hexdump -n 30000000 -v -e '/1 "%02X"' -e "/3 \"\n\"" /dev/urandom > B
+
+Calculate:
+
+    $ time setop union a b > /dev/null
+
+    real  0m19.953s
+    user  0m18.766s
+    sys 0m1.026s
+
+Compare another approach that uses typical commands:
+
+    $ time cat a b | sort | uniq > /dev/null
+
+    real  4m39.151s
+    user  4m44.682s
+    sys 0m2.135s
+
+
 ## Tracking
 
-* Program: setop
-* Version: 3.1.1
+* Program: venn
+* Version: 4.0.0
 * Created: 2017-01-30
-* Updated: 2018-05-29
+* Updated: 2018-05-30
 * License: GPL
 * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
