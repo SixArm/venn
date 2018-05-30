@@ -155,7 +155,7 @@ Default output text:
 
 Example of customizing:
 
-    $ TRUE=yes FALSE=no setup disjoint 1 2
+    $ TRUE=yes FALSE=no setop disjoint 1 2
     no
 
 
@@ -169,8 +169,8 @@ The goal is to maximize usability on a wide range of Unix systems, including old
 ## Tracking
 
 * Program: setop
-* Version: 3.1.0
+* Version: 3.1.1
 * Created: 2017-01-30
-* Updated: 2017-09-15
+* Updated: 2018-05-29
 * License: GPL
 * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
