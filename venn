@@ -1,4 +1,86 @@
 #!/bin/sh
+#
+# venn: set operations with a command line shell script
+#
+# Syntax:
+#
+#     venn (union|intersection|...) <input> ...
+#
+# Set operations:
+#
+#   * union: A ∪ B (lines that are in any input stream)
+#
+#   * intersection: A ∩ B (lines that are in every input stream)
+#
+#   * difference: A ⊕ B (lines that are in exactly one input stream)
+#
+#   * except: A - B (lines that are solely in the first input steam)
+#
+#   * extra: B - A (lines that are solely in the last input stream)
+#
+#   * disjoint: (is each line in only in one input stream?)
+#
+# Repository:
+#
+#   * https://github.com/SixArm/venn
+#
+#
+# ## Examples
+#
+# Examples use these two example data files:
+#
+#     $ cat A
+#     red
+#     green
+#
+#     $ cat B
+#     red
+#     blue
+#
+# Union:
+#
+#     $ venn union A B
+#     red
+#     green
+#     blue
+#
+# Intersection:
+#
+#     $ venn intersection A B
+#     red
+#
+# Difference:
+#
+#     $ venn difference A B
+#     green
+#     blue
+#
+# Except:
+#
+#     $ venn except A B
+#     green
+#
+# Extra:
+#
+#     $ venn extra A B
+#     blue
+#
+# Disjoint:
+#
+#     $ venn disjoint A B
+#     false
+#
+#
+# ## Tracking
+# 
+#   * Program: venn
+#   * Version: 4.1.0
+#   * Created: 2017-01-30
+#   * Updated: 2018-05-30
+#   * License: GPL
+#   * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
+##
+
 set -eu
 operation="$1"; shift
 TRUE=${TRUE:-true}
@@ -11,7 +93,7 @@ case  $operation  in
   ∩|i|intersection|and|∧|'&')
     awk 'FNR==1{argind+=1} seen[$0]+=1 {next} END { for (key in seen) { if (seen[key]==argind) { print key } } }' "$@"
     ;;
-  ⊖|d|diff|difference|xor|⊻)
+  ⊕|d|diff|difference|xor|⊻)
     awk 'FNR==1{argind+=1} seen[$0]+=1 {next} END { for (key in seen) { if (seen[key]==1) { print key } } }' "$@"
     ;;
   except|first|subtract|subtraction|'-')

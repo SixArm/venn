@@ -73,13 +73,17 @@ Disjoint:
 
 ### Union
 
-Set operation is (A union B) a.k.a. logical "or".
+Set theory operation (A union B).
 
 Print lines that are in any of the inputs.
 
+Also known as "logical or", "logical inclusive disjunction".
+
 Synonyms:
 
-  * `u` `union`
+  * `union`
+
+  * `u` (letter u)
 
   * `∪` (U+222A union)
 
@@ -94,13 +98,17 @@ Synonyms:
 
 ### Intersection
 
-Set operation is (A intersection B) a.k.a. logical "and".
+Set theory operation (A intersection B).
 
 Print lines that are in every one of the inputs.
 
+Also known as "logical and", "logical conjunction".
+
 Synonyms:
 
-  * `i` `intersection`
+  * `intersection`
+
+  * `i` (letter i)
 
   * `∩` (U+2229 intersection)
 
@@ -113,15 +121,19 @@ Synonyms:
 
 ### Difference
 
-Set operation (A symmetric difference B) a.k.a. logical "xor".
+Set theory operation (A symmetric difference B).
 
-Print lines that are in only one of the inputs. 
+Also known as "logical xor", "logical exclusive disjuntion".
+
+Print lines that are in solely one of the inputs. 
 
 Synonyms:
 
-  * `d` `diff` `difference` 
+  * `difference`
 
-  * `⊖` (U+2296 circled minus)
+  * `d` (letter d)
+
+  * `⊕` (U+2295 circled plus)
 
   * `∆` (U+2206 increment)
 
@@ -134,9 +146,9 @@ Synonyms:
 
 ### Except a.k.a. First
 
-Set theory (A except B) a.k.a. (A - B)
+Set operation (A except B) a.k.a. (A - B)
 
-Print lines that are only in the first input.
+Print lines that are solely in the first input.
 
 Synonyms:
 
@@ -144,16 +156,20 @@ Synonyms:
 
   * `first`
 
-  * `sub` `subtract` `subtraction`
+  * `sub` 
+  
+  * `subtract`
+  
+  * `subtraction`
 
   * `-` (U+2212 minus sign)
 
 
 ### Extra a.k.a. Last
 
-Set theory (A extra B) a.k.a. (B - A).
+Set theory operation (A extra B) a.k.a. (B - A).
 
-The lines that are only in the last input.
+The lines that are solely in the last input.
 
 Synonyms:
 
@@ -172,7 +188,11 @@ Synonyms:
 
   * `disjoint`
 
-  * `n` `not` `none`
+  * `n` (letter n)
+  
+  * `not` 
+  
+  * `none`
 
 
 ## Output true or false
@@ -223,7 +243,7 @@ Compare another approach that uses typical commands:
 ## Tracking
 
 * Program: venn
-* Version: 4.0.0
+* Version: 4.1.0
 * Created: 2017-01-30
 * Updated: 2018-05-30
 * License: GPL
