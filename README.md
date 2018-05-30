@@ -13,7 +13,7 @@ Set operations:
 
   * intersection: A ∩ B (lines that are in every input stream)
 
-  * difference: A ⊖ B (lines that are in exactly one input stream)
+  * difference: A ⊕ B (lines that are in exactly one input stream)
 
   * except: A - B (lines that are solely in the first input steam)
 
