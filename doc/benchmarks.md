@@ -1,24 +1,28 @@
 # Benchmarks
 
 
-## Try random unsorted data with some duplicates
+## Try randomly shuffled data
 
 Benchmark by using two files. Each file contains a million lines of random 6-digit hex strings.
 
 Generate data files:
 
-    $ hexdump -n 30000000 -v -e '/1 "%02X"' -e "/3 \"\n\"" /dev/urandom > a
-    $ hexdump -n 30000000 -v -e '/1 "%02X"' -e "/3 \"\n\"" /dev/urandom > b
+    $ awk 'BEGIN { for(i=0;i<1000000;i++) printf "%6.6X\n", i }' | shuf > a
+    $ awk 'BEGIN { for(i=1000000;i<2000000;i++) printf "%6.6X\n", i }' | shuf > b
 
 Time:
 
     $ time venn union a b > /dev/null
 
-    real  0m19.953s
-    user  0m18.766s
-    sys   0m1.026s
+    real   0m2.066s
+    user   0m1.872s
+    sys    0m0.178s
 
-Compare another approach that uses typical commands:
+    $ time sort -m a b > /dev/null
+
+    real   0m1.525s
+    user   0m1.506s
+    sys    0m0.011s
 
     $ time cat a b | sort | uniq > /dev/null
 
@@ -26,10 +30,10 @@ Compare another approach that uses typical commands:
     user  4m44.682s
     sys   0m2.135s
 
-Result: `venn` is approximately 15x faster.
+Result: `venn` is a bit slower than `sort -m`, and both are >100x faster than `cat... sort... uniq`.
 
 
-## Try sequential sorted data with no duplicates
+## Try sequential sorted data
 
 Benchmark by using two files. Each file contains a million lines of random 6-digit hex strings.
 
@@ -46,12 +50,24 @@ Time:
     user  0m1.294s
     sys   0m0.159s
 
-Compare another approach that uses typical commands:
-
     $ time sort -m a b > /dev/null
 
     real  0m1.529s
     user  0m1.515s
     sys   0m0.009s
 
-Result: `venn` is a approximately the same speed, maybe a bit faster.
+    $ time cat a b | sort | uniq > /dev/null
+
+    real  0m21.907s
+    user  0m22.348s
+    sys   0m0.186s
+
+Result: `venn` is approximately the same speed as `sort -m`, and both are >10x faster than `cat... sort... uniq`.
+
+
+## Conclusions
+
+The `venn` command can do more than the `sort -m` command, and is close to the same speed.
+
+Prefer `venn` or `sort -m` over `cat... sort... uniq`.
+
