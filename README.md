@@ -210,16 +210,10 @@ You can customize the output text by using environment variables:
     $ TRUE=yes FALSE=no venn disjoint A B
     yes
 
-You can use Unicode symbols:
+We like to customize the output text by using environment variables and Unicode symbols `⊤` (U+22A4 down tack) and `⊥` (U+22A5 up tack) like this:
 
     $ TRUE=⊤ FALSE=⊥ venn disjoint A B
     ⊤
-
-We like using these Unicode symbols:
-
-  * true is `⊤` (U+22A4 down tack).
-
-  * false is `⊥` (U+22A5 up tack).
 
 
 ## Implemenation
@@ -227,173 +221,6 @@ We like using these Unicode symbols:
 This command is currently implemented using `awk` and POSIX.
 
 The goal is to maximize usability on a wide range of Unix systems, including older systems, and pure POSIX systems.
-
-
-## Benchmarks
-
-
-### random unsorted with some duplicates
-
-Benchmark by using two files each containing a million lines of random 6-digit hex strings.
-
-Generate data files:
-
-    $ hexdump -n 30000000 -v -e '/1 "%02X"' -e "/3 \"\n\"" /dev/urandom > a
-    $ hexdump -n 30000000 -v -e '/1 "%02X"' -e "/3 \"\n\"" /dev/urandom > b
-
-Time:
-
-    $ time venn union a b > /dev/null
-
-    real  0m19.953s
-    user  0m18.766s
-    sys   0m1.026s
-
-Compare another approach that uses typical commands:
-
-    $ time cat a b | sort | uniq > /dev/null
-
-    real  4m39.151s
-    user  4m44.682s
-    sys   0m2.135s
-
-Conclusion: `venn` is approximately 15x faster.
-
-
-### sequential sorted with no duplicates
-
-Benchmark by using two files each containing a million lines of random 6-digit hex strings.
-
-Generate data files:
-
-    $ awk 'BEGIN { for(i=0;i<1000000;i++) printf "%6.6X\n", i }' > a
-    $ awk 'BEGIN { for(i=1000000;i<2000000;i++) printf "%6.6X\n", i }' > b
-
-Time:
-
-    $ time venn union a b > /dev/null
-
-    real  0m1.466s
-    user  0m1.294s
-    sys	  0m0.159s
-
-Compare another approach that uses typical commands:
-
-    $ time sort -m a b > /dev/null
-
-    real  0m1.529s
-    user  0m1.515s
-    sys   0m0.009s
-
-Conclusion: `venn` is a approximately a bit faster.
-
-
-## Comparisons
-
-Comparisons to other implementations, such as Unix, POSIX, shell scripts, etc.
-
-
-### sort 
-
-To sort an input file:
-
-    sort A
-
-To sort an input file and make lines unique i.e. suppress duplicate lines:
-
-	  sort -u A
-
-Some shells, such as current `bash` and current `ksh`, can send the output of commands as inputs, such as:
-
-    comm -1 -2 <(sort -u A) <(sort -u B)
-
-Note that the `venn` command works on data that is not sorted, and not unique. In other words, when you use `venn`, you don't need to use `sort -u`. See the "Benchmarks" section for a speed comparison of `venn` when inputs are not sorted, and not unique.
-
-
-### sort --merge
-
-You can use the `sort --merge` command to merge inputs. 
-
-These examples work when the inputs are presorted.
-
-Union:
-
-    $ sort -m A B | uniq
-
-Intersection:
-
-    $ sort -m A B | uniq -d
-
-Relative complement:
-
-    $ sort -m A A B | uniq -u
-
-Help:
-
-    $ man sort
-    $ man uniq
-
-
-### comm
-
-You can use the `comm` command to print lines in common.
-
-These examples work when the inputs are presorted.
-
-Show only items in both A and B:
-
-    $ comm -1 -2 A B
-
-Show only items unique to A:
-
-    $ comm -2 -3 A B
-
-Show only items unique to B:
-
-    $ comm -1 -3 A B
-
-Help:
-
-    $ man comm
-
-
-### cat and head
-
-Tip: When composing a command line, some people like to start with `cat` to make it the command easier to understand.
-
-Tip: When working with big files, you can limit the input if you start with something like `head -10`.
-
-Example:
-
-    $ cat A | head -10 | sort | uniq
-
-Then switch to cat after you work out the command. 
-
-Help:
-
-    $ man cat
-    $ man head
-
-
-### cut and join
-
-Tip: the `cut` command and `join` command can both be useful for working with lines of data. 
-
-Help:
-
-    $ man cut
-    $ man join
-
-
-### POSIX redirection
-
-It is POSIX shell parsing behaviour that redirections can appear anywhere in the command (obviously, not in the same word as another parameter, nor inside a quoted string). They have to be stripped out by the shell before execution.
-
-Example of equivalent commands:
-
-    $ <inputfile sort >outputfile
-
-    $ cat inputfile | sort > outputfile
 
 
 ## TODO
@@ -406,6 +233,11 @@ Want to help? We welcome help. You can open a GitHub issue, or send a GitHub pul
 
 
 ## References
+
+Documentation:
+
+* [Benchmarks](doc/benchmarks.md): Benchmarks of millions of lines of data, such as random unsorted data.
+* [Comparisons](doc/comparisons.md): Comparisons to other implementations, such as Unix/POSIX shell scripts.
 
 See also:
 
