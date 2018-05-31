@@ -3,7 +3,7 @@
 
 ## Try random unsorted data with some duplicates
 
-Benchmark by using two files each containing a million lines of random 6-digit hex strings.
+Benchmark by using two files. Each file contains a million lines of random 6-digit hex strings.
 
 Generate data files:
 
@@ -31,7 +31,7 @@ Result: `venn` is approximately 15x faster.
 
 ## Try sequential sorted data with no duplicates
 
-Benchmark by using two files each containing a million lines of random 6-digit hex strings.
+Benchmark by using two files. Each file contains a million lines of random 6-digit hex strings.
 
 Generate data files:
 
@@ -44,7 +44,7 @@ Time:
 
     real  0m1.466s
     user  0m1.294s
-    sys	  0m0.159s
+    sys   0m0.159s
 
 Compare another approach that uses typical commands:
 
