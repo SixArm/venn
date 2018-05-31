@@ -43,7 +43,9 @@ Set operations that venn can process:
 
   * extra: B - A (lines that are solely in the last input stream)
 
-  * disjoint: (is each line in only in one input stream?)
+  * joint: is any line in more than one input stream?
+
+  * disjoint: is each line in exactly one input stream?
 
 
 ### Options
@@ -100,6 +102,11 @@ Extra:
     $ venn extra a b
     blue
 
+Joint:
+
+    $ venn disjoint a b
+    true
+
 Disjoint:
 
     $ venn disjoint a b
@@ -152,7 +159,10 @@ case  $operation  in
   extra|last)
     awk 'BEGIN{argindmax=ARGC-1} FNR==1{argind+=1} argind<argindmax {seen[$0]; next}!($0 in seen)' "$@"
     ;;
-  disjoint|n|not|none)
+  joint|codependent)
+    awk -v t="$TRUE" -v f="$FALSE" 'seen[$0]==1 {x=1;exit} {seen[$0]=1} END { print x ? t : f; exit !x }' "$@"
+    ;;
+  disjoint|independent)
     awk -v t="$TRUE" -v f="$FALSE" 'seen[$0]==1 {x=1;exit} {seen[$0]=1} END { print x ? f : t; exit !!x }' "$@"
     ;;
   *)

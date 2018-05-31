@@ -55,7 +55,9 @@ Set operations that venn can process:
 
   * extra: B - A (lines that are solely in the last input stream)
 
-  * disjoint: (is each line in only in one input stream?)
+  * joint: is any line in more than one input stream?
+
+  * disjoint: is each line in exactly one input stream?
 
 
 ### Options
@@ -253,32 +255,52 @@ Examples:
     => print lines that are in c, not a, b
 
 
+### Joint
+
+Set operation is (A joint B).
+
+Do any of the input streams have any overlap i.e. any lines in common?
+
+If so, print $TRUE and exit 0, otherwise $FALSE and exit 1.
+
+Synonyms:
+
+  * `joint`
+
+  * `codependent`
+
+Examples:
+
+    $ venn joint a b c
+    $ venn codependent a b c
+    => print "true" if any of a, b, c, have any lines in common
+    => print "false" otherwise
+
+ 
+    
+
 ### Disjoint
 
 Set operation is (A disjoint B).
 
-Also known as "pairwise disjoint", "mutually disjoint".
+Do all of the input streams have no overlap i.e. no lines in common?
 
-Print $TRUE and exit 0, or $FALSE and exit 1. 
+If so, print $TRUE and exit 0, otherwise $FALSE and exit 1.
+
+Also known as "pairwise disjoint", "mutually disjoint".
 
 Synonyms:
 
   * `disjoint`
 
-  * `mutually-disjoint`
-
-  * `n` (letter n)
-
-  * `not`
-
-  * `none`
+  * `independent`
 
 Examples:
 
     $ venn disjoint a b c
-    $ venn not a b c
-    => print "true" if a, b, c, are independent i.e. mutually disjoint
-    => print "false" if a, b, c, share any items i.e. any overlap
+    $ venn independent a b c
+    => print "true" if all of a, b, c, have no lines in common
+    => print "false" otherwise
 
 
 ## Customization
@@ -286,19 +308,24 @@ Examples:
 
 ### Custom output for true or false
 
-The `disjoint` operation output is either true or false:
+The `joint` operation and the `disjoint` operation use output that is either true or false.
+
+Example:
+
+    $ venn joint a b
+    true
 
     $ venn disjoint a b
-    true
+    false
 
 You can customize the output text by using environment variables:
 
-    $ TRUE=yes FALSE=no venn disjoint a b
+    $ TRUE=yes FALSE=no venn joint a b
     yes
 
 We like to customize the output text by using environment variables and the Unicode symbols `⊤` (U+22A4 down tack) and `⊥` (U+22A5 up tack) like this:
 
-    $ TRUE=⊤ FALSE=⊥ venn disjoint a b
+    $ TRUE=⊤ FALSE=⊥ venn joint a b
     ⊤
 
 
