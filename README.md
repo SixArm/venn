@@ -308,7 +308,7 @@ Examples:
 
 ### Custom output for true or false
 
-The `joint` operation and the `disjoint` operation use output that is either true or false.
+The `joint` operation and the `disjoint` operation produce output that is either true or false.
 
 Example:
 
@@ -341,7 +341,11 @@ The goal is to maximize usability on a wide range of Unix systems, including old
 Ideas to implement:
 
   * Add a "--help" option?
-  
+
+  * Add a way to automatically do unique? 
+
+  * Add exception handling, such as if an input stream is not unique?
+
 Want to help? We welcome help. You can open a GitHub issue, or send a GitHub pull request, or email us at sixarm@sixarm.com.
 
 
