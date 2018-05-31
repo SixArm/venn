@@ -195,19 +195,31 @@ Synonyms:
   * `none`
 
 
-## Output true or false
+## Customization
 
-Default output text:
 
-  * TRUE is `⊤` (U+22A4 down tack).
+### Custom output for true or false
 
-  * FALSE is `⊥` (U+22A5 up tack).
+The `disjoint` operation output is either true or false:
 
-Example of customizing:
+    $ venn disjoint A B
+    true
 
-    $ TRUE=yes FALSE=no venn disjoint 1 2
-    no
+You can customize the output text by using environment variables:
 
+    $ TRUE=yes FALSE=no venn disjoint A B
+    yes
+
+You can use Unicode symbols:
+
+    $ TRUE=⊤ FALSE=⊥ venn disjoint A B
+    ⊤
+
+We like using these Unicode symbols:
+
+  * true is `⊤` (U+22A4 down tack).
+
+  * false is `⊥` (U+22A5 up tack).
 
 
 ## Implemenation
@@ -246,7 +258,7 @@ Compare another approach that uses typical commands:
 Comparisons to other implementations, such as Unix, POSIX, shell scripts, etc.
 
 
-### `sort` 
+### sort 
 
 To sort an input file:
 
@@ -263,7 +275,7 @@ Some shells, such as current `bash` and current `ksh`, can send the output of co
 Note that the `venn` command works on data that is not sorted, and not unique. In other words, when you use `venn`, you don't need to use `sort -u`. See the "Benchmarks" section for a speed comparison of `venn` when inputs are not sorted, and not unique.
 
 
-### `sort --merge`
+### sort --merge
 
 You can use the `sort --merge` command to merge inputs. 
 
@@ -285,9 +297,9 @@ Help:
 
     $ man sort
     $ man uniq
-    
 
-### `comm`
+
+### comm
 
 You can use the `comm` command to print lines in common.
 
@@ -310,7 +322,7 @@ Help:
     $ man comm
 
 
-### `cat` and `head`
+### cat and head
 
 Tip: When composing a command line, some people like to start with `cat` to make it the command easier to understand.
 
@@ -328,7 +340,7 @@ Help:
     $ man head
 
 
-### `cut` and `join`
+### cut and join
 
 Tip: the `cut` command and `join` command can both be useful for working with lines of data. 
 
