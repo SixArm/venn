@@ -11,9 +11,9 @@ Set operations:
 
   * union: A ∪ B (lines that are in any input stream)
 
-  * intersection: A ∩ B (lines that are in every input stream)
+  * intersection: A ∩ B (lines that are in all input streams)
 
-  * difference: A ⊕ B (lines that are in exactly one input stream)
+  * difference: A ⊕ B (lines that are in one input stream)
 
   * except: A - B (lines that are solely in the first input steam)
 
@@ -21,50 +21,56 @@ Set operations:
 
   * disjoint: (is each line in only in one input stream?)
 
+Options:
+
+  * `-h` `--help`: show help
+
+  * `-v` `--version`: show version
+
 
 ### Examples
 
 Examples use these two example data files:
 
-    $ cat A
+    $ cat a
     red
     green
 
-    $ cat B
+    $ cat b
     red
     blue
 
 Union:
 
-    $ venn union A B
+    $ venn union a b
     red
     green
     blue
 
 Intersection:
 
-    $ venn intersection A B
+    $ venn intersection a b
     red
 
 Difference:
 
-    $ venn difference A B
+    $ venn difference a b
     green
     blue
 
 Except:
 
-    $ venn except A B
+    $ venn except a b
     green
 
 Extra:
 
-    $ venn extra A B
+    $ venn extra a b
     blue
 
 Disjoint:
 
-    $ venn disjoint A B
+    $ venn disjoint a b
     false
 
 
@@ -75,7 +81,7 @@ Disjoint:
 
 Set theory operation (A union B).
 
-Print lines that are in any of the inputs.
+Print lines that are in any of the input streams.
 
 Also known as "logical or", "logical inclusive disjunction".
 
@@ -95,12 +101,18 @@ Synonyms:
 
   * `or`
 
+Example:
+
+    $ venn union a b c
+    $ venn or a b c
+    => print lines that are in any of a, b, c
+
 
 ### Intersection
 
 Set theory operation (A intersection B).
 
-Print lines that are in every one of the inputs.
+Print lines that are in all of the input streams.
 
 Also known as "logical and", "logical conjunction".
 
@@ -118,14 +130,20 @@ Synonyms:
 
   * `and`
 
+Example:
+
+    $ venn intersection a b c
+    $ venn and a b c
+    => print lines that are in all of a, b, c
+
 
 ### Difference
 
 Set theory operation (A symmetric difference B).
 
-Also known as "logical xor", "logical exclusive disjuntion".
+Print lines that are in one of the input streams.
 
-Print lines that are in solely one of the inputs. 
+Also known as "logical xor", "logical exclusive disjuntion".
 
 Synonyms:
 
@@ -142,6 +160,12 @@ Synonyms:
   * `⊻` (U+22BB logical xor)
 
   * `xor`
+
+Examples:
+
+    $ venn difference a b c
+    $ venn xor a b c
+    => print lines that are in one of a, b, c
 
 
 ### Except a.k.a. First
@@ -164,6 +188,12 @@ Synonyms:
 
   * `-` (U+2212 minus sign)
 
+Examples:
+
+    $ venn except a b c
+    $ venn first a b c
+    => print lines that are in a, not b, c
+
 
 ### Extra a.k.a. Last
 
@@ -177,10 +207,18 @@ Synonyms:
 
   * `last`
 
+Examples:
+
+    $ venn extra a b c
+    $ venn last a b c
+    => print lines that are in c, not a, b
+
 
 ### Disjoint
 
 Set operation is (A disjoint B).
+
+Also known as "pairwise disjoint", "mutually disjoint".
 
 Print $TRUE and exit 0, or $FALSE and exit 1. 
 
@@ -188,11 +226,20 @@ Synonyms:
 
   * `disjoint`
 
+  * `mutually-disjoint`
+
   * `n` (letter n)
-  
-  * `not` 
-  
+
+  * `not`
+
   * `none`
+
+Examples:
+
+    $ venn disjoint a b c
+    $ venn not a b c
+    => print "true" if a, b, c, are independent i.e. mutually disjoint
+    => print "false" if a, b, c, share any items i.e. any overlap
 
 
 ## Customization
@@ -202,17 +249,17 @@ Synonyms:
 
 The `disjoint` operation output is either true or false:
 
-    $ venn disjoint A B
+    $ venn disjoint a b
     true
 
 You can customize the output text by using environment variables:
 
-    $ TRUE=yes FALSE=no venn disjoint A B
+    $ TRUE=yes FALSE=no venn disjoint a b
     yes
 
-We like to customize the output text by using environment variables and Unicode symbols `⊤` (U+22A4 down tack) and `⊥` (U+22A5 up tack) like this:
+We like to customize the output text by using environment variables and the Unicode symbols `⊤` (U+22A4 down tack) and `⊥` (U+22A5 up tack) like this:
 
-    $ TRUE=⊤ FALSE=⊥ venn disjoint A B
+    $ TRUE=⊤ FALSE=⊥ venn disjoint a b
     ⊤
 
 
@@ -253,8 +300,8 @@ Thanks:
 ## Tracking
 
 * Program: venn
-* Version: 4.1.0
+* Version: 4.2.0
 * Created: 2017-01-30
-* Updated: 2018-05-30
+* Updated: 2018-06-01
 * License: GPL
 * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)

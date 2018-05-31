@@ -1,87 +1,117 @@
 #!/bin/sh
-#
-# venn: set operations with a command line shell script
-#
-# Syntax:
-#
-#     venn (union|intersection|...) <input> ...
-#
-# Set operations:
-#
-#   * union: A ∪ B (lines that are in any input stream)
-#
-#   * intersection: A ∩ B (lines that are in every input stream)
-#
-#   * difference: A ⊕ B (lines that are in exactly one input stream)
-#
-#   * except: A - B (lines that are solely in the first input steam)
-#
-#   * extra: B - A (lines that are solely in the last input stream)
-#
-#   * disjoint: (is each line in only in one input stream?)
-#
-# Repository:
-#
-#   * https://github.com/SixArm/venn
-#
-#
-# ## Examples
-#
-# Examples use these two example data files:
-#
-#     $ cat A
-#     red
-#     green
-#
-#     $ cat B
-#     red
-#     blue
-#
-# Union:
-#
-#     $ venn union A B
-#     red
-#     green
-#     blue
-#
-# Intersection:
-#
-#     $ venn intersection A B
-#     red
-#
-# Difference:
-#
-#     $ venn difference A B
-#     green
-#     blue
-#
-# Except:
-#
-#     $ venn except A B
-#     green
-#
-# Extra:
-#
-#     $ venn extra A B
-#     blue
-#
-# Disjoint:
-#
-#     $ venn disjoint A B
-#     false
-#
-#
-# ## Tracking
-# 
-#   * Program: venn
-#   * Version: 4.1.0
-#   * Created: 2017-01-30
-#   * Updated: 2018-05-30
-#   * License: GPL
-#   * Contact: Joel Parker Henderson (joel@joelparkerhenderson.com)
-##
-
 set -eu
+
+## Program Tracking
+
+program_command="venn"
+program_version="4.2.0"
+program_created="2017-01-30"
+program_updated="2018-05-30"
+program_license="GPL"
+program_contact="Joel Parker Henderson (joel@joelparkerhenderson.com)"
+
+## Help Function
+
+help(){
+cat << EOF
+
+venn: set operations with a command line shell script
+
+Syntax:
+
+    venn (union|intersection|...) <input> ...
+
+Set operations:
+
+  * union: A ∪ B (lines that are in any input stream)
+
+  * intersection: A ∩ B (lines that are in every input stream)
+
+  * difference: A ⊕ B (lines that are in exactly one input stream)
+
+  * except: A - B (lines that are solely in the first input steam)
+
+  * extra: B - A (lines that are solely in the last input stream)
+
+  * disjoint: (is each line in only in one input stream?)
+
+Repository:
+
+  * https://github.com/SixArm/venn
+
+
+## Examples
+
+Examples use these two example data files:
+
+    $ cat a
+    red
+    green
+
+    $ cat b
+    red
+    blue
+
+Union:
+
+    $ venn union a b
+    red
+    green
+    blue
+
+Intersection:
+
+    $ venn intersection a b
+    red
+
+Difference:
+
+    $ venn difference a b
+    green
+    blue
+
+Except:
+
+    $ venn except a b
+    green
+
+Extra:
+
+    $ venn extra a b
+    blue
+
+Disjoint:
+
+    $ venn disjoint a b
+    false
+
+
+## Tracking
+
+  * Command: $program_command
+  * Version: $program_version
+  * Updated: $program_updated
+  * License: $program_license
+  * Contact: $program_contact
+
+EOF
+}
+
+if [ "$#" -eq 0 ]; then
+  help; exit 0
+fi
+
+if [ "$#" -eq 1 ]; then
+  case "$1" in
+    -h|--help)
+      help; exit 0
+      ;;
+    -v|--version)
+      out $program_version; exit 0
+      ;;
+  esac
+fi
+      
 operation="$1"; shift
 TRUE=${TRUE:-true}
 FALSE=${FALSE:-false}
