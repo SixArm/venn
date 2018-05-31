@@ -357,8 +357,9 @@ See also:
 * [Set operations with uniq](http://blog.deadvax.net/2018/05/29/shell-magic-set-operations-with-uniq/)
 * [Hacker News discussion](https://news.ycombinator.com/item?id=17183092)
 
-Thanks:
+Contributors, advisors, thanks:
 
+* [Joel Parker Henderson](https://github.com/joelparkerhenderson)
 * [Markus Krüger](https://github.com/markusbk)
 * [Brian Pitts](https://github.com/sciurus)
 
