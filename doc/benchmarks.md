@@ -54,4 +54,4 @@ Compare another approach that uses typical commands:
     user  0m1.515s
     sys   0m0.009s
 
-Result: `venn` is a approximately a bit faster.
+Result: `venn` is a approximately the same speed, maybe a bit faster.
