@@ -1,7 +1,7 @@
 # Benchmarks
 
 
-## random unsorted data with some duplicates
+## Try random unsorted data with some duplicates
 
 Benchmark by using two files each containing a million lines of random 6-digit hex strings.
 
@@ -29,7 +29,7 @@ Compare another approach that uses typical commands:
 Result: `venn` is approximately 15x faster.
 
 
-## sequential sorted data with no duplicates
+## Try sequential sorted data with no duplicates
 
 Benchmark by using two files each containing a million lines of random 6-digit hex strings.
 
