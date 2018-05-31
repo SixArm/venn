@@ -2,12 +2,48 @@
 
 <img src="README.png" alt="Realm" style="width: 100%;"/>
 
+The `venn` command does set operations on the shell command line,
+for example to process text files and do set union, set intersection, etc.
+
+* [Introduction](#introduction)
+  * [Syntax](#syntax)
+  * [Set operations](#set-operations)
+  * [Options](#options)
+  * [Examples](#examples)
+* [Set operations details](#set-operations-details)
+  * [Union](#union)
+  * [Intersection](#intersection)
+  * [Difference](#difference)
+  * [Except a.k.a. First](#except-a-k-a-first)
+  * [Extra a.k.a. Last](#extra-a-k-a-last)
+  * [Disjoint](#disjoint)
+* [Customization](#customization)
+  * [Custom output for true or false](#custom-output-for-true-or-false)
+* [Implemenation](#implemenation)
+* [TODO](#todo)
+* [References](#references)
+* [Tracking](#tracking)
+
+
+## Introduction
+
+Script: [venn](bin/venn)
+
+
+### Syntax
 
 Syntax:
 
     venn (union|intersection|...) <input> ...
 
-Set operations:
+Syntax example:
+
+    venn union file-1.txt file-2.txt file-3.txt
+
+
+### Set operations
+
+Set operations that venn can process:
 
   * union: A ∪ B (lines that are in any input stream)
 
@@ -21,7 +57,10 @@ Set operations:
 
   * disjoint: (is each line in only in one input stream?)
 
-Options:
+
+### Options
+
+Options on the command line:
 
   * `-h` `--help`: show help
 
@@ -300,7 +339,7 @@ Thanks:
 ## Tracking
 
 * Program: venn
-* Version: 4.2.0
+* Version: 4.3.0
 * Created: 2017-01-30
 * Updated: 2018-06-01
 * License: GPL
