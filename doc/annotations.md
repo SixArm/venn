@@ -41,34 +41,32 @@ This means that NR==FNR is useful to test if you're processing the first file.
 
 Code:
 
-    awk '!seen[$0] {print} {seen[$0]=1}' "$@"
+    awk 'seen[$0] { next } { print $0; seen[$0]=1; }' "$@"
+
+
 
 Meaning:
 
-  * If this is the first time we're seeing the current record, then print it, else remember it.
+  * The first time we see a record, print it, and remember it.
 
   * `$0` is the current record, which by default is the current line.
 
   * `seen[$0]` means "have we seen the current record?". 
 
-    * `seen[...]` is an associative array lookup i.e. we are asking if the `seen` hash has a key. 
+  * `seen[$0]` defaults to undefined, which is evaluated as false, unless we do something later on to change it.
 
-    * `seen[...]` defaults to undefined, which is evaluated as false, unless we do something later on to change it.
+  * `next` means skip to the next record.
+  
+  * `print` without any arguments means print the current record.
 
-  * `seen[$0]=1` means "we are seeing the current line". 
+  * `seen[$0]=1` means "remember that we are seeing the current line". 
 
-    * We could have set this to anything, because all we care about is defining a value; we typically use 1 to mean true.
+    * We could have used any value (not just 1) because all we care about is defining the associative array key; we typically use 1 to mean true.
 
     * We could have named this array anything; we typically use the name `seen` to emphasize that we're seeing items.
 
-  * `!seen[$0] {...} {...}` means "if we have not seen the current record, then do the first thing, else do the second thing".
-
-  * `print` without any arguments means print the current record.
- 
   * `$@` means "the rest of the shell arguments from the invocation of this script".
 
     * For example if the script is invoked as `venn union a b c` then `$@` is an array of `a`, `b`, `c`.
 
     * `"$@"` means quote the arguments; this is a shell security habit that protects them from accidential expansion.
-
-

@@ -143,9 +143,9 @@ operation="$1"; shift
 TRUE=${TRUE:-true}
 FALSE=${FALSE:-false}
 
-case  $operation  in
+case $operation in
   ∪|u|union|or|∨|add|addition|'+'|'|')
-    awk '!seen[$0] {print} {seen[$0]=1}' "$@"
+    awk 'seen[$0] { next } { print $0; seen[$0]=1 }' "$@"
     ;;
   ∩|i|intersection|and|∧|'&')
     awk 'FNR==1{argind+=1} seen[$0]+=1 {next} END { for (key in seen) { if (seen[key]==argind) { print key } } }' "$@"
