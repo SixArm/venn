@@ -38,7 +38,7 @@ Syntax:
 
 Syntax example:
 
-    venn union file-1.txt file-2.txt file-3.txt
+    venn union file-1 file-2
 
 
 ### Set operations
@@ -113,6 +113,43 @@ Disjoint:
 
     $ venn disjoint a b
     false
+
+
+
+## Install
+
+Venn is one shell script, and you install it by putting the script anywhere in your path.
+
+
+### preflight
+
+Verify that you have the `awk` command, such as:
+
+    $ awk --version
+
+We target GNU Awk:
+
+    GNU Awk 4.2.1, API: 2.0 (GNU MPFR 4.0.1, GNU MP 6.1.2)
+
+If you have a different Awk, then venn should still work fine.
+
+
+### git
+
+To install via git:
+
+    git clone https://github.com/SixArm/venn.git
+    cp venn/bin/venn /usr/local/bin/venn
+
+
+### curl
+
+To install via curl:
+
+    curl -fsSL https://raw.githubusercontent.com/SixArm/venn/master/bin/venn > /usr/local/bin/venn
+    chmod +x /usr/local/bin/venn
+
+We want to create typical packages, such as for Debian apt, RedHat yum, macOS brew, etc. If you're a developer, and want to create packages, then we welcome your help.
 
 
 ## Set operations details
